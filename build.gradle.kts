@@ -11,7 +11,7 @@ repositories {
 }
 
 application {
-    mainClassName = "kep.workshop.ApplicationKt"
+    mainClassName = "io.ktor.server.netty.EngineMain"
 }
 
 dependencies {
@@ -22,6 +22,7 @@ dependencies {
     // Ktor modules
     implementation("io.ktor:ktor:$ktorVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
+    implementation("io.ktor:ktor-jackson:$ktorVersion")
     // Logging
     implementation("ch.qos.logback:logback-classic:1.2.3")
 }
