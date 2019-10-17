@@ -23,6 +23,10 @@ dependencies {
     implementation("io.ktor:ktor:$ktorVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
     implementation("io.ktor:ktor-jackson:$ktorVersion")
+    // Database
+    implementation("com.h2database:h2:1.4.200")
+    implementation("com.zaxxer:HikariCP:3.3.1")
+    implementation("org.jetbrains.exposed:exposed:0.17.6")
     // Logging
     implementation("ch.qos.logback:logback-classic:1.2.3")
 }

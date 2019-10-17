@@ -67,30 +67,24 @@ fun Application.contentNegotiation() {
 
     routing {
         route("/speaker") {
+            val repository = SpeakerRepository()
             get("/list") {
-                call.respond(HttpStatusCode.OK, speakers.values)
+                call.respond(HttpStatusCode.OK, repository.findAll())
             }
             get("/{id}") {
-                val speaker =
-                    try {
-                        speakers[call.parameters["id"]]
-                    } catch (e: NoSuchElementException) {
-                        null
-                    }
+                val speaker = repository.findById(call.parameters["id"] ?: "")
 
                 if (speaker == null) call.respond(HttpStatusCode.NotFound)
-                else
-                    call.respond(HttpStatusCode.OK, speaker)
+                else call.respond(HttpStatusCode.OK, speaker)
             }
         }
 
         route("/talk") {
+            val repository = TalkRepository()
             get("/list") {
                 val type = call.request.queryParameters["type"]
 
-                val talkList =
-                    if (type == null) talks.values
-                    else talks.values.filter { it.type.equals(type, ignoreCase = true) }
+                val talkList = repository.findByType(type)
 
                 if (talkList.isEmpty()) call.respond(HttpStatusCode.NotFound)
                 else call.respond(HttpStatusCode.OK, talkList)
@@ -99,7 +93,7 @@ fun Application.contentNegotiation() {
             get("/{id}") {
                 val talk =
                     try {
-                        talks[call.parameters["id"]]
+                        repository.findById(call.parameters["id"] ?: "")
                     } catch (e: NoSuchElementException) {
                         null
                     }

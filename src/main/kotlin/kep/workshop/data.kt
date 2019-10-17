@@ -129,7 +129,7 @@ val speakers = listOf(
         twitter = "yrezgui",
         webSite = "https://yrezgui.com"
     )
-).associateBy { it.id }
+)
 
 val talks = listOf(
     Talk(
@@ -308,4 +308,4 @@ val talks = listOf(
         type = "WORKSHOP",
         speaker = "romain-boisselle"
     )
-).associateBy { it.id }
+)
