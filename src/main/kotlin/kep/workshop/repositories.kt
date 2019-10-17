@@ -1,6 +1,7 @@
 package kep.workshop
 
 import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 
@@ -52,4 +53,21 @@ class TalkRepository {
             type = this[TalkTable.type],
             speaker = this[TalkTable.speaker]
         )
+}
+
+class UserRepository {
+    suspend fun findAll() = dbQuery {
+        User.all().toList()
+    }
+
+    suspend fun findByUsername(username: String) = dbQuery {
+        User.find { UserTable.username eq username }.singleOrNull()
+    }
+
+    suspend fun check(username: String, password: String): Boolean = dbQuery {
+        UserTable.select {
+            (UserTable.username eq username) and
+                    (UserTable.password eq password)
+        }.singleOrNull() != null
+    }
 }

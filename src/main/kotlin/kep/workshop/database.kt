@@ -21,8 +21,7 @@ object DatabaseFactory {
     fun initConfig() {
         Database.connect(hikari())
         transaction {
-            SchemaUtils.create(SpeakerTable)
-            SchemaUtils.create(TalkTable)
+            SchemaUtils.create(SpeakerTable, TalkTable, UserTable)
         }
     }
 
@@ -46,6 +45,10 @@ object DatabaseFactory {
                     it[type] = talk.type
                     it[speaker] = talk.speaker
                 }
+            }
+            User.new {
+                username = "romain"
+                password = "pwd"
             }
         }
     }

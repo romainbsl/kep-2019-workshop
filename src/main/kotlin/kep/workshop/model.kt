@@ -1,5 +1,9 @@
 package kep.workshop
 
+import org.jetbrains.exposed.dao.EntityID
+import org.jetbrains.exposed.dao.IntEntity
+import org.jetbrains.exposed.dao.IntEntityClass
+import org.jetbrains.exposed.dao.IntIdTable
 import org.jetbrains.exposed.sql.Table
 
 data class Speaker(
@@ -34,4 +38,16 @@ object TalkTable : Table() {
     val description = varchar("description", 2000)
     val type = varchar("type", 10).default("TALK")
     val speaker = (varchar("speaker", 50) references SpeakerTable.id).nullable()
+}
+
+object  UserTable : IntIdTable() {
+    val username = varchar("username", 50)
+    val password = varchar("password", 50)
+}
+
+class User(id: EntityID<Int>) : IntEntity(id) {
+    companion object : IntEntityClass<User>(UserTable)
+
+    var username by UserTable.username
+    var password by UserTable.password
 }
