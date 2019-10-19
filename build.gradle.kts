@@ -32,6 +32,8 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed:0.17.6")
     // Logging
     implementation("ch.qos.logback:logback-classic:1.2.3")
+    // Tests
+    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
 }
 
 tasks.withType<KotlinCompile> {
